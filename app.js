@@ -36,10 +36,11 @@ async function checkSlotAvailability() {
     if (availableCenters.length > 0) {
       console.log("\n**** Slots are available", availableCenters);
       await sendEmail(availableCenters);
-      setTimeout(checkSlotAvailability, 10000);
+      console.log("\n**** Slots available. You have just been notified via email. Trying again in 15 seconds...");
+      setTimeout(checkSlotAvailability, 15000);
     } else {
-      console.log("\n**** Slots are not available. Trying again in 4 seconds...");
-      setTimeout(checkSlotAvailability, 4000);
+      console.log("\n**** Slots are not available. Trying again in 3 seconds...");
+      setTimeout(checkSlotAvailability, 3000);
     }
   } catch (e) {
     console.log(e, "\n**** Something is wrong. Tracker stopped");
