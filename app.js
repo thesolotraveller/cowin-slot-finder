@@ -1,13 +1,16 @@
 const request = require("request-promise");
 const nodemailer = require("nodemailer");
 
-require('dotenv').config()
+require("dotenv").config();
 
 function getUrl(pincode = 474002) {
   const d = new Date();
-  const dateFormatted = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
+  const dateFormatted = `${d.getDate() + 1}-${
+    d.getMonth() + 1
+  }-${d.getFullYear()}`;
 
-  const baseUrl = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin";
+  const baseUrl =
+    "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin";
   const fullUrl = `${baseUrl}?pincode=${pincode}&date=${dateFormatted}`;
 
   return fullUrl;
@@ -16,11 +19,12 @@ function getUrl(pincode = 474002) {
 async function checkSlotAvailability() {
   try {
     const url = getUrl(474002);
-    const {centers = []} = await request(url, { json: true });
+    const { centers = [] } = await request(url, { json: true });
     const availableCenters = centers
       .filter(
         (center) =>
-          center.sessions[0].min_age_limit === 45 && center.sessions[0].available_capacity > 0
+          center.sessions[0].min_age_limit === 45 &&
+          center.sessions[0].available_capacity > 0
       )
       .map((center) => {
         return {
@@ -36,15 +40,19 @@ async function checkSlotAvailability() {
     if (availableCenters.length > 0) {
       console.log("\n**** Slots are available", availableCenters);
       await sendEmail(availableCenters);
-      console.log("\n**** Slots available. You have just been notified via email. Trying again in 15 seconds...");
+      console.log(
+        "\n**** Slots available. You have just been notified via email. Trying again in 15 seconds..."
+      );
       setTimeout(checkSlotAvailability, 15000);
     } else {
-      console.log("\n**** Slots are not available. Trying again in 3 seconds...");
+      console.log(
+        "\n**** Slots are not available. Trying again in 3 seconds..."
+      );
       setTimeout(checkSlotAvailability, 3000);
     }
   } catch (e) {
     console.log(e, "\n**** Something is wrong. Tracker stopped");
-    process.exit()
+    process.exit();
   }
 }
 
@@ -65,7 +73,9 @@ async function sendEmail(msg) {
     from: '"Mohit from Sahay" <mohit@sahay.club>',
     to: `${receivers.join(",")}`,
     subject: "CoWin vaccinces now available! Book your slot ! Hurry up !",
-    html: `<b>List of vaccination centers</b><br/><p>${JSON.stringify(msg)}</p>`,
+    html: `<b>List of vaccination centers</b><br/><p>${JSON.stringify(
+      msg
+    )}</p>`,
   });
 
   console.log("Message sent: %s", info.messageId);
