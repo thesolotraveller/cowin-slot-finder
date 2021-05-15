@@ -3,15 +3,16 @@ const nodemailer = require("nodemailer");
 
 require("dotenv").config();
 
+const { logInfo, logSuccess, logError } = require("./utils/logger");
+
 function getUrl(pincode = 474002) {
   const d = new Date();
-  const dateFormatted = `${d.getDate() + 1}-${
-    d.getMonth() + 1
-  }-${d.getFullYear()}`;
+  const dateFormatted = `${d.getDate() + 1}-${d.getMonth() + 1}-${d.getFullYear()}`;
 
-  const baseUrl =
-    "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin";
+  const baseUrl = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin";
   const fullUrl = `${baseUrl}?pincode=${pincode}&date=${dateFormatted}`;
+
+  logInfo(`** Checking for vaccine slots in "${pincode}" for "${dateFormatted}"`);
 
   return fullUrl;
 }
@@ -21,11 +22,7 @@ async function checkSlotAvailability() {
     const url = getUrl(474002);
     const { centers = [] } = await request(url, { json: true });
     const availableCenters = centers
-      .filter(
-        (center) =>
-          center.sessions[0].min_age_limit === 45 &&
-          center.sessions[0].available_capacity > 0
-      )
+      .filter((center) => center.sessions[0].min_age_limit === 45 && center.sessions[0].available_capacity > 0)
       .map((center) => {
         return {
           name: center.name,
@@ -38,21 +35,17 @@ async function checkSlotAvailability() {
       });
 
     if (availableCenters.length > 0) {
-      console.log("\n**** Slots are available", availableCenters);
+      logSuccess("\n**** Slots are available", availableCenters);
       await sendEmail(availableCenters);
-      console.log(
-        "\n**** Slots available. You have just been notified via email. Trying again in 15 seconds..."
-      );
+      logSuccess("**** Slots available. You have just been notified via email. Trying again in 15 seconds...\n");
       setTimeout(checkSlotAvailability, 15000);
     } else {
-      console.log(
-        "\n**** Slots are not available. Trying again in 3 seconds..."
-      );
+      logInfo("**** Slots are not available. Trying again in 3 seconds...\n");
       setTimeout(checkSlotAvailability, 3000);
     }
   } catch (e) {
-    console.log(e, "\n**** Something is wrong. Tracker stopped");
-    process.exit();
+    logError(e, "**** Something is wrong. Tracker stopped\n");
+    setTimeout(checkSlotAvailability, 3000);
   }
 }
 
@@ -73,12 +66,10 @@ async function sendEmail(msg) {
     from: '"Mohit from Sahay" <mohit@sahay.club>',
     to: `${receivers.join(",")}`,
     subject: "CoWin vaccinces now available! Book your slot ! Hurry up !",
-    html: `<b>List of vaccination centers</b><br/><p>${JSON.stringify(
-      msg
-    )}</p>`,
+    html: `<b>List of vaccination centers</b><br/><p>${JSON.stringify(msg)}</p>`,
   });
 
-  console.log("Message sent: %s", info.messageId);
+  logInfo("\n**** Message sent: %s", info.messageId);
 }
 
 checkSlotAvailability();
