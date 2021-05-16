@@ -9,7 +9,11 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
     const url = getUrlByDistrictName(city, dateOffsetFromToday);
     const { centers = [] } = await request(url, { json: true });
     const availableCenters = centers
-      .filter((center) => center.sessions[0].min_age_limit === process.env.AGE_GROUP && center.sessions[0].available_capacity > 0)
+      .filter(
+        (center) =>
+          center.sessions[0].min_age_limit === process.env.AGE_GROUP &&
+          center.sessions[0].available_capacity > 0
+      )
       .map((center) => {
         return {
           name: center.name,
@@ -37,5 +41,5 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
 }
 
 module.exports = {
-  checkSlotAvailability
-}
+  checkSlotAvailability,
+};
