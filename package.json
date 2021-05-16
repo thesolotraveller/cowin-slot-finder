@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "clean-packages": "rm -rf cowin-slot-finder*",
+    "package": "npm run clean-packages && pkg ."
   },
   "keywords": [],
   "author": "",
