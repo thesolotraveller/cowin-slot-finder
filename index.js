@@ -52,7 +52,7 @@ const promptFor = (questionType) => {
 
     case "EmailRecipients":
       rl.question(
-        "\nEnter comma(,) seperated list of email ids? Press ENTER to skip this step.\n",
+        "\nEnter comma(,) seperated list of email ids which need subscription? Press ENTER to skip this step.\n",
         (emails) => {
           subscriptionConfigs.EMAILS = emails.split(",").map((email) => email.trim());
           promptFor("SMTPServer");
@@ -83,7 +83,11 @@ const promptFor = (questionType) => {
         (userPassword) => {
           subscriptionConfigs.USER_PASSWORD = userPassword;
           rl.close();
-          logInfo("Monitoring started successfully");
+          const {EMAILS, SMTP_SERVER, USER_EMAIL, USER_PASSWORD} = subscriptionConfigs;
+          if (!EMAILS || !SMTP_SERVER || !USER_EMAIL || !USER_PASSWORD) {
+            logInfo("Keep an eye on notifations of this computer. You will not be notified by email as you have not configured any.")
+          }
+          console.log("\n\n ****  Monitoring started successfully ****\n\n");
           checkSlotAvailability(subscriptionConfigs.CITY, subscriptionConfigs.DATE_OFFSET);
         }
       );
