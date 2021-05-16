@@ -2,6 +2,11 @@
 
 This is a small program to subscribe to vaccine availability as it becomes available in the government's database. The user is notified via email. Email credentials need to be filled in by the user
 
+# Download for MacOS, Windows and Linux
+[Linux](https://drive.google.com/file/d/1AL65JV1_FSxtDQpa7sR8eEsXFsQih9tw/view?usp=sharing)
+[MacOS](https://drive.google.com/file/d/1OzoGy-cgyxnTxtBOSCEhezEe6kUJOqER/view?usp=sharing)
+[Windows](https://drive.google.com/file/d/1-0gOUUCQgUfXyKoomGhnz3Wq2mEKaWcT/view?usp=sharing)
+
 ## Installation
 
 Use the node package manager [npm](https://nodejs.org) to install the dependencies.
