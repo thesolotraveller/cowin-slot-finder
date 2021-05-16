@@ -18,9 +18,11 @@ async function sendEmail(msg) {
       from: '"Mohit from Sahay" <mohit@sahay.club>',
       to: `${subscribers.list.join(",")}`,
       subject: "CoWin vaccinces now available! Book your slot ! Hurry up !",
-      html: `<b>List of vaccination centers</b><br/><p>${JSON.stringify(msg)}</p>`,
+      html: `<b>List of vaccination centers</b><br/><p>${JSON.stringify(
+        msg
+      )}</p>`,
     });
-  
+
     logSuccess("\nMessage sent: %s", info.messageId);
   } catch (error) {
     logError(error);
@@ -28,5 +30,5 @@ async function sendEmail(msg) {
 }
 
 module.exports = {
-  sendEmail
-}
+  sendEmail,
+};

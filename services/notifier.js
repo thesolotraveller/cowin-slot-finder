@@ -1,4 +1,4 @@
-const notifier = require('node-notifier');
+const notifier = require("node-notifier");
 const { logError } = require("./logger");
 const { sendEmail } = require("./email");
 
@@ -13,11 +13,12 @@ async function notify(vaccinationCenters) {
   }
 
   notifier.notify({
-    message: 'Vaccination slots available now in your city | Hurry up and book a slot',
-    title: 'Vaccines Available'
+    message:
+      "Vaccination slots available now in your city | Hurry up and book a slot",
+    title: "Vaccines Available",
   });
 }
 
 module.exports = {
-  notify
-}
+  notify,
+};

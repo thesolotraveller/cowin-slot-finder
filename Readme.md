@@ -38,6 +38,16 @@ AGE_GROUP=18
 npm start
 ```
 
+## To generate binaries (executables) for MacOs, Windows and Linux
+
+```bash
+# if pkg is not installed globally, install using npm and if already installed ignore command below
+npm i -g pkg
+
+# to generate executables
+npm run package
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

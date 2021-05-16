@@ -9,7 +9,11 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
     const url = getUrlByDistrictName(city, dateOffsetFromToday);
     const { centers = [] } = await request(url, { json: true });
     const availableCenters = centers
-      .filter((center) => center.sessions[0].min_age_limit === process.env.AGE_GROUP && center.sessions[0].available_capacity > 0)
+      .filter(
+        (center) =>
+          center.sessions[0].min_age_limit === process.env.AGE_GROUP &&
+          center.sessions[0].available_capacity > 0
+      )
       .map((center) => {
         return {
           name: center.name,
@@ -24,18 +28,22 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
     if (availableCenters.length > 0) {
       logSuccess("\nSlots are available", availableCenters);
       await notify(availableCenters);
-      logSuccess("Slots available. You have just been notified via email. Trying again in 60 seconds...\n");
+      logSuccess(
+        "Slots available. You have just been notified via email. Trying again in 60 seconds...\n"
+      );
       setTimeout(() => checkSlotAvailability(city, dateOffsetFromToday), 60000);
     } else {
       logInfo("Slots are not available. Trying again in 3 seconds...\n");
       setTimeout(() => checkSlotAvailability(city, dateOffsetFromToday), 3000);
     }
   } catch (e) {
-    logError(e, "\nSomething is wrong. Tracker stopped\n");
-    setTimeout(() => checkSlotAvailability(city, dateOffsetFromToday), 3000);
+    logError(
+      "Something is wrong. Not able to fetch the data. Retrying in 30 seconds.\n"
+    );
+    setTimeout(() => checkSlotAvailability(city, dateOffsetFromToday), 30000);
   }
 }
 
 module.exports = {
-  checkSlotAvailability
-}
+  checkSlotAvailability,
+};
