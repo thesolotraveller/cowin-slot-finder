@@ -18,16 +18,19 @@ const colorsToCode = {
   BgRed: "\x1b[41m",
   BgGreen: "\x1b[42m",
   BgBlue: "\x1b[44m",
-}
+};
 
 const log = (...messages) => console.log(Date.now(), ...messages);
-const logInfo = (...messages) => console.log(colorsToCode["FgYellow"], Date.now(), " -> ", ...messages);
-const logSuccess = (...messages) => console.log(colorsToCode["FgGreen"], Date.now(), " -> ", ...messages);
-const logError = (...messages) => console.log(colorsToCode["FgRed"], Date.now(), " -> ", ...messages);
+const logInfo = (...messages) =>
+  console.log(colorsToCode["FgYellow"], Date.now(), " -> ", ...messages);
+const logSuccess = (...messages) =>
+  console.log(colorsToCode["FgGreen"], Date.now(), " -> ", ...messages);
+const logError = (...messages) =>
+  console.log(colorsToCode["FgRed"], Date.now(), " -> ", ...messages);
 
 module.exports = {
   log,
   logInfo,
   logSuccess,
-  logError
+  logError,
 };
