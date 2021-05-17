@@ -1,11 +1,23 @@
 # Cowin vaccine availability tracker
 
-This is a small program to subscribe to vaccine availability as it becomes available in the government's database. The user is notified via email. Email credentials need to be filled in by the user
+This is a small program to subscribe to vaccine availability as it becomes available in the government's database. The user is notified via email. Email credentials need to be filled in by the user.
+
+- If email is not configured, notifier falls back to OS notifications
 
 # Download for MacOS, Windows and Linux
 [Linux](https://drive.google.com/file/d/1AL65JV1_FSxtDQpa7sR8eEsXFsQih9tw/view?usp=sharing)
 [MacOS](https://drive.google.com/file/d/1OzoGy-cgyxnTxtBOSCEhezEe6kUJOqER/view?usp=sharing)
 [Windows](https://drive.google.com/file/d/1-0gOUUCQgUfXyKoomGhnz3Wq2mEKaWcT/view?usp=sharing)
+
+## Configure subscription details
+
+After starting the app, this is how we can configure it
+
+![](images/configuring-subscription.png)
+
+Subscription in Action
+
+![](images/subsription-in-action.png)
 
 ## Installation
 
@@ -13,34 +25,6 @@ Use the node package manager [npm](https://nodejs.org) to install the dependenci
 
 ```bash
 npm install
-```
-
-## Configure subscription details
-
-```text
-Create a `.env` file in the root
-Set below listed values
-
-SMTP_SERVER
-USER_EMAIL
-USER_PASSWORD
-CITY
-AGE_GROUP
-
-A properly filled .env file will look something like
-
-SMTP_SERVER=smtpout.secureserver.net
-USER_EMAIL=user@gmail.com
-USER_PASSWORD=letuscallitchinesevirus
-CITY=Gwalior
-AGE_GROUP=18
-
-```
-
-## Start the subscription service
-
-```bash
-npm start
 ```
 
 ## To generate binaries (executables) for MacOs, Windows and Linux
