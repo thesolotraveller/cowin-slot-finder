@@ -3,7 +3,7 @@ const { logError } = require("./logger");
 const { sendEmail } = require("./email");
 
 async function notify(vaccinationCenters) {
-  const { SMTP_SERVER, USER_EMAIL, USER_PASSWORD } = process.env;
+  const { SMTP_SERVER, USER_EMAIL, USER_PASSWORD } = global.subscriptionConfigs;
 
   if (!SMTP_SERVER || !USER_EMAIL || !USER_PASSWORD) {
     logError("Email notifier not configured");

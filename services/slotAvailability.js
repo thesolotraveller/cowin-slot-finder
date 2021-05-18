@@ -11,7 +11,7 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
     const availableCenters = centers
       .filter(
         (center) =>
-          center.sessions[0].min_age_limit === process.env.AGE_GROUP &&
+          center.sessions[0].min_age_limit === parseInt(global.subscriptionConfigs.AGE_GROUP) &&
           center.sessions[0].available_capacity > 0
       )
       .map((center) => {
@@ -26,7 +26,7 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
       });
 
     if (availableCenters.length > 0) {
-      logSuccess("\nSlots are available", availableCenters);
+      logSuccess(`\n${availableCenters.length} Slots are available`);
       await notify(availableCenters);
       logSuccess(
         "Slots available. You have just been notified via email. Trying again in 60 seconds...\n"
