@@ -5,9 +5,9 @@ This is a small program to subscribe to vaccine availability as it becomes avail
 - If email is not configured, notifier falls back to OS notifications
 
 # Download for MacOS, Windows and Linux
-[Linux](https://drive.google.com/file/d/1AL65JV1_FSxtDQpa7sR8eEsXFsQih9tw/view?usp=sharing)
-[MacOS](https://drive.google.com/file/d/1OzoGy-cgyxnTxtBOSCEhezEe6kUJOqER/view?usp=sharing)
-[Windows](https://drive.google.com/file/d/1-0gOUUCQgUfXyKoomGhnz3Wq2mEKaWcT/view?usp=sharing)
+[Linux]   - (https://lnkd.in/ePB7598)
+[MacOS]   - (https://lnkd.in/eMzCFjf)
+[Windows] - (https://lnkd.in/ePGxXqR)
 
 ## Configure subscription details
 

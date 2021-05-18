@@ -26,7 +26,7 @@ async function checkSlotAvailability(city, dateOffsetFromToday = 0) {
       });
 
     if (availableCenters.length > 0) {
-      logSuccess(`\n${availableCenters.length} Slots are available`);
+      logSuccess(`${availableCenters.length} Slots are available`);
       await notify(availableCenters);
       logSuccess(
         "Slots available. You have just been notified via email. Trying again in 60 seconds...\n"
